@@ -46,6 +46,15 @@ public class TestService  {
         return test;
     }
 
+    public void addNewTest(Test test) {
+        iTestRepository.save(test);
+        iQuestionRepository.save(test.getQuestions());
+        iAnswerRepository.save(test.getQuestions()
+                                    .stream()
+                                    .map(x-> x.getAnswers())
+                                    .flatMap(x -> x.stream())
+                                    .collect(Collectors.toList()));
+    }
 
     private String convertToCodesnippet(String code) {
         final String uri = "http://hilite.me/api";
