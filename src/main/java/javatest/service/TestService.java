@@ -35,6 +35,17 @@ public class TestService  {
         this.iAnswerRepository = iAnswerRepository;
     }
 
+    public Test getTestById(Long id) {
+        Test test =  iTestRepository.findOne(id);
+
+        test.getQuestions()
+                .stream()
+                .filter(x -> x.getCodeSnippet() != null)
+                .forEach(x -> x.setCodeSnippet(convertToCodesnippet(x.getCodeSnippet())));
+
+        return test;
+    }
+
 
     private String convertToCodesnippet(String code) {
         final String uri = "http://hilite.me/api";
