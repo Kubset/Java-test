@@ -1,6 +1,8 @@
 package javatest.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -16,6 +18,9 @@ public class Answer {
 
     @ManyToOne(targetEntity = Question.class)
     private Question question;
+
+    public Answer() {
+    }
 
     public Answer(String answer, boolean isCorrect, Question question) {
         this.answer = answer;
@@ -47,6 +52,7 @@ public class Answer {
         isCorrect = correct;
     }
 
+    @JsonIgnore
     public Question getQuestion() {
         return question;
     }
