@@ -13,8 +13,27 @@ public class Test {
     private Long id;
     private int level;
 
+    @OneToMany(mappedBy = "test")
+    private List<Question> questions;
+
+    public Test() {
+    }
+
     public Test(int level) {
         this.level = level;
+    }
+
+    public Test(int level, List<Question> questions) {
+        this.level = level;
+        this.questions = questions;
+    }
+
+    public List<Question> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(List<Question> questions) {
+        this.questions = questions;
     }
 
     public Long getId() {

@@ -1,6 +1,8 @@
 package javatest.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -13,17 +15,41 @@ public class Question {
     @Column(columnDefinition = "serial")
     private Long id;
     private String description;
+
+    @Column(columnDefinition = "TEXT")
     private String codeSnippet;
     private int points;
 
     @ManyToOne(targetEntity = Test.class)
-    Test test;
+    private Test test;
+
+    @OneToMany(mappedBy = "question")
+    private List<Answer> answers;
+
+    public Question() {
+    }
 
     public Question(String description, String codeSnippet, int points, Test test) {
         this.description = description;
         this.codeSnippet = codeSnippet;
         this.points = points;
         this.test = test;
+    }
+
+    public Question(String description, String codeSnippet, int points, Test test, List<Answer> answers) {
+        this.description = description;
+        this.codeSnippet = codeSnippet;
+        this.points = points;
+        this.test = test;
+        this.answers = answers;
+    }
+
+    public List<Answer> getAnswers() {
+        return answers;
+    }
+
+    public void setAnswers(List<Answer> answers) {
+        this.answers = answers;
     }
 
     public Long getId() {
@@ -58,6 +84,7 @@ public class Question {
         this.points = points;
     }
 
+    @JsonIgnore
     public Test getTest() {
         return test;
     }
