@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
     <head>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"/>
         <link rel="stylesheet" href="/styles.css"/>
@@ -14,16 +14,25 @@
         <title>Document</title>
     </head>
     <body>
-    <!--hardcoded dependency-->
-        <div class="main-contet">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src=".../100px180/" alt="Card image cap"/>
-                <div class="card-body">
-                    <h5 class="card-title">Java Tests</h5>
-                    <p class="card-text">Solve java test</p>
-                    <a href="/java" class="btn btn-primary">Go to java tests</a>
+        <div class="main-content">
+            <form method="POST"  th:object="${Test}">
+
+                <div class="card" th:each="i : ${#numbers.sequence( 0, Test.getQuestions().size()-1)}">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${Test.getQuestions().get(i).getDescription()}"></h5>
+                        <h6 class="card-subtitle mb-2 text-muted" th:utext="${Test.getQuestions().get(i).getCodeSnippet()}"></h6>
+                        <div class="card-text" th:each="j : ${#numbers.sequence( 0, Test.getQuestions().get(i).getAnswers().size()-1)}">
+
+                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked="false"/>
+                            <label class="form-check-label" for="exampleRadios1" th:text="${Test.getQuestions().get(i).getAnswers().get(j).getAnswer()}">
+                            </label>
+
+                        </div>
+                    </div>
                 </div>
-            </div>
+
+            </form>
+
         </div>
     </body>
 </html>

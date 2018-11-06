@@ -1,5 +1,9 @@
 .main-content {
     margin-top : 5%;
-    margin-left : 20%;
-    margin-right : 20%;
+    margin-left : 13%;
+    margin-right : 13%;
+}
+
+.card-text {
+    margin-left: 20px;
 }
